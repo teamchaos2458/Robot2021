@@ -113,4 +113,8 @@ public class Drive implements Mechanism {
 		m_leftWheel.set(angleShift);
 		m_rightWheel.set(-angleShift);
 	}
+
+	public CANSparkMax[] getWheels() {
+		return new CANSparkMax[] { m_leftWheel, m_rightWheel };
+	}
 }

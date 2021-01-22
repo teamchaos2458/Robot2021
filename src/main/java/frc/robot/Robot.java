@@ -12,11 +12,18 @@ public class Robot extends TimedRobot {
 			// new TaranisDriver(4),
 			new JoystickOperator(1, 2));
 	private Mechanism[] mechs;
+	private AutoNav auto;
 
 	public Robot() {
 		super();
-		mechs = new Mechanism[] { new Drive(m_controller), new Magazine(m_controller), new BallShooter(m_controller),
-				new Cameras(m_controller) };
+		Drive drive = new Drive(m_controller);
+		Magazine magazine = new Magazine(m_controller);
+		BallShooter ballShooter = new BallShooter(m_controller);
+		Cameras cameras = new Cameras(m_controller);
+
+		mechs = new Mechanism[] { drive, magazine, ballShooter, cameras };
+
+		auto = new AutoNav(drive);
 	}
 
 	@Override
@@ -38,7 +45,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-
+		auto.runTrackBarrelRacing();
 	}
 
 	@Override

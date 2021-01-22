@@ -19,10 +19,7 @@ public class Magazine implements Mechanism {
 			STEP_TIME_OUT = 2;
 
 	private CANSparkMax[] m_spools = { m_lowerSpool, m_upperSpool };
-	private PlannedMotion m_stepUp = new PlannedMotion(m_spools, STEP_TIME_OUT,
-			new double[] { STEP_GAP_SPACING, STEP_GAP_SPACING }),
-			m_stepDown = new PlannedMotion(m_spools, STEP_TIME_OUT,
-					new double[] { -STEP_GAP_SPACING, -STEP_GAP_SPACING });
+	private PlannedMotion m_step = new PlannedMotion(m_spools, STEP_TIME_OUT);
 
 	public Magazine(ControllerInput controller) {
 		m_controller = controller;
@@ -32,8 +29,7 @@ public class Magazine implements Mechanism {
 		m_upperSpool.setInverted(true);
 		m_lowerSpool.setInverted(false);
 
-		m_stepUp.setConstantSpeed(STEP_MAG_SPEED);
-		m_stepDown.setConstantSpeed(STEP_MAG_SPEED);
+		m_step.setSpeeds(STEP_MAG_SPEED);
 	}
 
 	@Override
@@ -41,8 +37,7 @@ public class Magazine implements Mechanism {
 		m_intake.set(0);
 		m_upperSpool.set(0);
 		m_lowerSpool.set(0);
-		m_stepUp.resolveExecution();
-		m_stepDown.resolveExecution();
+		m_step.finish();
 	}
 
 	@Override
@@ -57,12 +52,12 @@ public class Magazine implements Mechanism {
 
 		// magazine
 		if (m_controller.operator().magazineStepUp()) {
-			m_stepUp.startExecution();
+			m_step.asyncMoveTo(STEP_GAP_SPACING, STEP_GAP_SPACING);
 		} else if (m_controller.operator().magazineStepDown()) {
-			m_stepDown.startExecution();
+			m_step.asyncMoveTo(-STEP_GAP_SPACING, -STEP_GAP_SPACING);
 		}
 
-		if (!m_stepUp.isExecuting() && !m_stepDown.isExecuting()) {
+		if (!m_step.isExecuting()) {
 			// manual control
 			for (int i = 0; i < m_spools.length; i++) {
 				// for both spools
@@ -76,10 +71,6 @@ public class Magazine implements Mechanism {
 					spoolSpeed = m_controller.operator().getMagazineStageAnalog(s);
 				m_spools[i].set(spoolSpeed);
 			}
-		} else {
-			// stepping. loops will do nothing if not stepping
-			m_stepUp.executionLoop();
-			m_stepDown.executionLoop();
 		}
 	}
 }
