@@ -68,11 +68,8 @@ public class PlannedMotion {
 	public void asyncMoveTo(double... goalRotations) {
 		v_executing = true; // set early in case of race condition
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				moveTo(goalRotations);
-			}
+		new Thread(() -> {
+			moveTo(goalRotations);
 		}).start();
 	}
 
