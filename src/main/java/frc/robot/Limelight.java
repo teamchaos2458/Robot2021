@@ -21,13 +21,4 @@ public class Limelight {
 
 		return xAngle;
 	}
-
-	public void run() {
-		/*
-		 * NetworkTableEntry camMode =
-		 * NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode");
-		 * if(m_controller.useCamera1()) { camMode.forceSetNumber(0); } else
-		 * if(m_controller.useCamera2()) { camMode.forceSetNumber(1); }
-		 */
-	}
 }

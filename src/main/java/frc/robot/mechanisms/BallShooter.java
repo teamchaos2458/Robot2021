@@ -1,29 +1,24 @@
 package frc.robot.mechanisms;
 
-import frc.robot.AutoPhase;
 import frc.robot.Mechanism;
 import frc.robot.input.ControllerInput;
 
 import com.revrobotics.CANSparkMax;
-
-import edu.wpi.first.wpilibj.Timer;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class BallShooter implements Mechanism {
 	private ControllerInput m_controller;
-	private AutoPhase m_auto;
-	private CANSparkMax m_shooterLeft, m_shooterRight;
-	private Timer m_timer = new Timer();
+	private CANSparkMax m_shooterLeft = new CANSparkMax(6, MotorType.kBrushless),
+			m_shooterRight = new CANSparkMax(5, MotorType.kBrushless);
 
 	private double v_shooterSpeedLeft, v_shooterSpeedRight;
 
 	private final double[] SHOOTER_SPEEDS = { 0.4, 0.6, 0.8 };
 
-	public BallShooter(ControllerInput controller, AutoPhase auto, CANSparkMax[] wheels) {
+	public BallShooter(ControllerInput controller) {
 		m_controller = controller;
-		m_auto = auto;
 
-		m_shooterLeft = wheels[0];
-		m_shooterRight = wheels[1];
+		m_shooterLeft.setInverted(true);
 	}
 
 	@Override
@@ -38,7 +33,7 @@ public class BallShooter implements Mechanism {
 	public void teleopPeriodic() {
 		if (m_controller.operator().useAnalogShooter()) {
 			double analogSpeed = m_controller.operator().getAnalogShooterSpeed();
-			m_shooterLeft.set(-analogSpeed);
+			m_shooterLeft.set(analogSpeed);
 			m_shooterRight.set(analogSpeed);
 		} else {
 			// select shooter speeds from button press
@@ -47,39 +42,12 @@ public class BallShooter implements Mechanism {
 			selectShooterSpeeds(11, SHOOTER_SPEEDS[2]);
 
 			if (m_controller.operator().fireShooter()) {
-				m_shooterLeft.set(-v_shooterSpeedLeft);
+				m_shooterLeft.set(v_shooterSpeedLeft);
 				m_shooterRight.set(v_shooterSpeedRight);
 			} else {
 				m_shooterLeft.set(0);
 				m_shooterRight.set(0);
 			}
-		}
-	}
-
-	@Override
-	public void autonomousInit() {
-		m_timer.reset();
-		m_shooterLeft.set(0);
-		m_shooterRight.set(0);
-	}
-
-	@Override
-	public void autonomousPeriodic() {
-		String phase = m_auto.getPhase();
-		if (phase.equals("spinUpShooter")) {
-			if (m_auto.startUp()) {
-				// start auto sequence
-				m_shooterLeft.set(-SHOOTER_SPEEDS[2]);
-				m_shooterRight.set(SHOOTER_SPEEDS[2]);
-				m_timer.start();
-				m_auto.clearStartUp();
-			} else {
-				// run auto sequence
-				m_auto.setPhase("loadBalls");
-			}
-		} else if (phase.equals("done")) {
-			m_shooterLeft.set(0);
-			m_shooterRight.set(0);
 		}
 	}
 

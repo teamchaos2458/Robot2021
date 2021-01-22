@@ -21,12 +21,16 @@ public class PlannedMotion {
 		TIME_OUT = timeOut;
 
 		// m_plan format
-		/*
-		 * double[][] { {-1, -1} <- first position goal (rotations) {-0.5, 0.5} <-
-		 * second position goal (rotations) ...
-		 * 
-		 * ^ second motor ^ first motor }
-		 */
+
+		// double[][] {
+		// {-1, -1} <- first position goal (rotations)
+		// {-0.5, 0.5} <- second position goal (rotations)
+		// ...
+
+		// .......^ second motor
+		// ..^ first motor
+		// }
+
 	}
 
 	public PlannedMotion(CANSparkMax[] motors, double timeOut, double[] plan) {

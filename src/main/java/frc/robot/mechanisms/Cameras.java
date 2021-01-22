@@ -36,12 +36,4 @@ public class Cameras implements Mechanism {
             // m_server.setSource(m_cam2);
         }
     }
-
-    @Override
-    public void autonomousInit() {
-    }
-
-    @Override
-    public void autonomousPeriodic() {
-    }
 }
