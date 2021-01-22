@@ -12,12 +12,11 @@ public class Robot extends TimedRobot {
 			// new TaranisDriver(4),
 			new JoystickOperator(1, 2, 3));
 	private Mechanism[] mechs;
-	private AutoPhaseTracker m_auto = new AutoPhaseTracker();
 
 	public Robot() {
 		super();
-		mechs = new Mechanism[] { new Drive(m_controller, m_auto), new Magazine(m_controller),
-				new BallShooter(m_controller), new Cameras(m_controller) };
+		mechs = new Mechanism[] { new Drive(m_controller), new Magazine(m_controller), new BallShooter(m_controller),
+				new Cameras(m_controller) };
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package frc.robot.mechanisms;
 
 import frc.robot.Mechanism;
 import frc.robot.input.ControllerInput;
-import frc.robot.AutoPhaseTracker;
 import frc.robot.Functions;
 import frc.robot.Limelight;
 
@@ -24,7 +23,7 @@ public class Drive implements Mechanism {
 
 	private CANSparkMax[] m_wheels = { m_leftWheel, m_rightWheel };
 
-	public Drive(ControllerInput controller, AutoPhaseTracker auto) {
+	public Drive(ControllerInput controller) {
 		m_controller = controller;
 
 		for (int i = 0; i < m_wheels.length; i++) {
