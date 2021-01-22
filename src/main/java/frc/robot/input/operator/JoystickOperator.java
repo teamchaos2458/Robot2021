@@ -3,17 +3,15 @@ package frc.robot.input.operator;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class JoystickOperator implements OperatorInput {
-    private Joystick m_shooterJoy, m_intakeJoy;// , m_otherJoy;
+    private Joystick m_shooterJoy, m_intakeJoy;
 
-    // public boolean adjustWithLimelight() {return m_shooterJoy.getRawButton(9);}
-
-    public JoystickOperator(int shooterPort, int intakePort, int otherPort) {
+    public JoystickOperator(int shooterPort, int intakePort) {
         m_shooterJoy = new Joystick(shooterPort);
         m_intakeJoy = new Joystick(intakePort);
-        // m_otherJoy = new Joystick(otherPort);
     }
 
     // Magazine
+
     public boolean doBallIntakeIn() {
         return m_intakeJoy.getTrigger();
     }
@@ -55,6 +53,7 @@ public class JoystickOperator implements OperatorInput {
     }
 
     // BallShooter
+
     public boolean fireShooter() {
         return m_shooterJoy.getTrigger();
     }
@@ -69,10 +68,5 @@ public class JoystickOperator implements OperatorInput {
 
     public double getAnalogShooterSpeed() {
         return -m_shooterJoy.getY();
-    }
-
-    // Color Spinner
-    public double getControlPanelSpin() {
-        return m_shooterJoy.getRawButton(8) ? m_shooterJoy.getX() : 0;
     }
 }

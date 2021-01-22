@@ -10,6 +10,7 @@ public class TaranisDriver implements DriverInput {
 	}
 
 	// Drive
+
 	public double[] getDriveThrots() {
 		return new double[] { m_taranis.getRawAxis(0), m_taranis.getRawAxis(1) };
 	}
@@ -30,31 +31,7 @@ public class TaranisDriver implements DriverInput {
 		return false;
 	}
 
-	// ColorSpinner
-	public boolean startRotationControl() {
-		return false;
-	}
-
-	public boolean startPositionControl() {
-		return false;
-	}
-
-	// Lift
-	public double hookLiftSpeed() {
-		return -switch3(4);
-	}
-
-	public boolean loosenWinch() {
-		return switch3(5) == 1;
-	}
-
-	public boolean tightenWinch() {
-		return switch3(5) == -1;
-	}
-
-	public boolean resetHookEncoder() {
-		return false;
-	}
+	// Cameras
 
 	public boolean useCamera1() {
 		return switch3(6) == 1;
@@ -63,6 +40,8 @@ public class TaranisDriver implements DriverInput {
 	public boolean useCamera2() {
 		return switch3(6) == -1;
 	}
+
+	// helpers
 
 	private boolean switch2Pos(int channel) {
 		return m_taranis.getRawAxis(channel) > 0;

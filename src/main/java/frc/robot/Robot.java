@@ -10,7 +10,7 @@ public class Robot extends TimedRobot {
 	private ControllerInput m_controller = new ControllerInput(new JoystickDriver(0),
 			// new XboxDriver(0),
 			// new TaranisDriver(4),
-			new JoystickOperator(1, 2, 3));
+			new JoystickOperator(1, 2));
 	private Mechanism[] mechs;
 
 	public Robot() {

@@ -24,7 +24,4 @@ public interface OperatorInput {
 	public boolean useAnalogShooter();
 
 	public double getAnalogShooterSpeed();
-
-	// Color Spinner
-	public double getControlPanelSpin();
 }

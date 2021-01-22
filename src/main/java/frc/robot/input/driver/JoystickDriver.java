@@ -10,6 +10,7 @@ public class JoystickDriver implements DriverInput {
 	}
 
 	// Drive
+
 	public double[] getDriveThrots() {
 		return new double[] { -m_driveJoy.getY(), m_driveJoy.getTwist() };
 	}
@@ -30,31 +31,7 @@ public class JoystickDriver implements DriverInput {
 		return false;
 	};
 
-	// ColorSpinner
-	public boolean startRotationControl() {
-		return false;
-	}
-
-	public boolean startPositionControl() {
-		return false;
-	}
-
-	// Lift
-	public double hookLiftSpeed() {
-		return 0;
-	}
-
-	public boolean loosenWinch() {
-		return m_driveJoy.getPOV() == 180;
-	}
-
-	public boolean tightenWinch() {
-		return m_driveJoy.getPOV() == 0;
-	}
-
-	public boolean resetHookEncoder() {
-		return false;
-	}
+	// Cameras
 
 	public boolean useCamera1() {
 		return false;

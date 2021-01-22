@@ -12,19 +12,7 @@ public interface DriverInput {
 
 	public boolean adjustWithLimelight();
 
-	// ColorSpinner
-	public boolean startRotationControl();
-
-	public boolean startPositionControl();
-
-	// Lift
-	public double hookLiftSpeed();
-
-	public boolean loosenWinch();
-
-	public boolean tightenWinch();
-
-	public boolean resetHookEncoder();
+	// Cameras
 
 	public boolean useCamera1();
 

@@ -11,6 +11,7 @@ public class XboxDriver implements DriverInput {
 	}
 
 	// Drive
+
 	public double[] getDriveThrots() {
 		return new double[] { -m_xbox.getY(Hand.kLeft), m_xbox.getX(Hand.kRight) };
 	}
@@ -31,31 +32,7 @@ public class XboxDriver implements DriverInput {
 		return m_xbox.getBumper(Hand.kLeft);
 	}
 
-	// ColorSpinner
-	public boolean startRotationControl() {
-		return m_xbox.getXButtonPressed();
-	}
-
-	public boolean startPositionControl() {
-		return m_xbox.getBButtonPressed();
-	}
-
-	// Lift
-	public double hookLiftSpeed() {
-		return m_xbox.getTriggerAxis(Hand.kRight) - m_xbox.getTriggerAxis(Hand.kLeft);
-	}
-
-	public boolean loosenWinch() {
-		return m_xbox.getPOV() == 180;
-	}
-
-	public boolean tightenWinch() {
-		return m_xbox.getPOV() == 0;
-	}
-
-	public boolean resetHookEncoder() {
-		return m_xbox.getBackButtonPressed();
-	}
+	// Cameras
 
 	public boolean useCamera1() {
 		return m_xbox.getAButtonPressed();
